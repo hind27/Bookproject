@@ -5,6 +5,7 @@ if(process.env.NODE_ENV !== 'production'){
 const express = require('express')
 const app = express();
 var ejs = require('ejs');
+var path = require('path');
 const expressLayouts = require("express-ejs-layouts");
 const bodyParser = require('body-parser')
 //const methodOverride = require('method-override')
@@ -17,6 +18,7 @@ db.once('open',()=> console.log('connected to Mongoose'))
 
 var indexRouter = require('./routes/index');
 var authorsRouter = require('./routes/authors');
+var bookRouter = require('./routes/books');
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
@@ -28,5 +30,6 @@ app.use(bodyParser.urlencoded({ limit: '10mb', extended: false }))
 
 app.use('/', indexRouter);
 app.use('/authors' ,authorsRouter)
+app.use('/books' ,bookRouter)
 
 app.listen(process.env.PORT || 3000)
